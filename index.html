@@ -1,1 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ghibli Studio Scene Generator</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Google Sniglet & Nunito for friendly Ghibli aesthetics -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Sniglet:wght@400;800&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ghibli: {
+              cream: '#fdfbf7',
+              paper: '#f9f6ef',
+              sky: '#e0f2fe',
+              skyDark: '#bae6fd',
+              grass: '#dcfce7',
+              grassDark: '#86efac',
+              wood: '#78350f',
+              woodSoft: '#92400e',
+              terracotta: '#f97316',
+              textMain: '#292524',
+              textMuted: '#57534e'
+            }
+          },
+          fontFamily: {
+            sniglet: ['Sniglet', 'cursive'],
+            sans: ['Nunito', 'sans-serif']
+          },
+          boxShadow: {
+            'ghibli': '0 8px 30px rgba(120, 53, 15, 0.08), 0 4px 12px rgba(0,0,0,0.05)',
+            'card': '0 10px 20px -5px rgba(120, 53, 15, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.03)',
+            'inner-soft': 'inner 0 2px 4px 0 rgba(0, 0, 0, 0.06)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #fdfbf7;
+      background-image: 
+        radial-gradient(#e0f2fe 1.5px, transparent 1.5px), 
+        radial-gradient(#f0fdf4 1.5px, #fdfbf7 1.5px);
+      background-size: 60px 60px;
+      background-position: 0 0, 30px 30px;
+      color: #292524;
+    }
+
+    /* Soft floating cloud animations */
+    @keyframes float {
+      0% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(1deg); }
+      100% { transform: translateY(0px) rotate(0deg); }
+    }
+
+    @keyframes floatSlow {
+      0% { transform: translateY(0px) translateX(0px); }
+      50% { transform: translateY(-12px) translateX(6px); }
+      100% { transform: translateY(0px) translateX(0px); }
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.8; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.03); }
+    }
+
+    .animate-float {
+      animation: float 5s ease-in-out infinite;
+    }
+
+    .animate-float-slow {
+      animation: floatSlow 8s ease-in-out infinite;
+    }
+
+    .animate-pulse-glow {
+      animation: pulseGlow 2.5s ease-in-out infinite;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #fdfbf7;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+  </style>
+</head>
+<body class="font-sans antialiased min-h-screen pb-16 relative overflow-x-hidden selection:bg-ghibli-sky selection:text-ghibli-wood">
+
+  <!-- Background Decorative Floating Elements -->
+  <div class="fixed top-12 left-8 text-sky-200 opacity-60 pointer-events-none animate-float-slow">
+    <i data-lucide="cloud" class="w-24 h-24 stroke-1"></i>
+  </div>
+  <div class="fixed top-36 right-12 text-emerald-100 opacity-70 pointer-events-none animate-float">
+    <i data-lucide="sparkles" class="w-16 h-16 stroke-1"></i>
+  </div>
+  <div class="fixed bottom-12 left-16 text-amber-100 opacity-70 pointer-events-none animate-float-slow">
+    <i data-lucide="flower-2" class="w-20 h-20 stroke-1"></i>
+  </div>
+
+  <!-- Main Container -->
+  <div class="max-w-5xl mx-auto px-4 pt-8 sm:pt-12 relative z-10">
+
+    <!-- Header Section -->
+    <header class="text-center mb-10">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-100/80 border border-emerald-200 text-emerald-800 text-sm font-bold mb-4 shadow-sm animate-float">
+        <i data-lucide="wand-2" class="w-4 h-4 text-emerald-600"></i>
+        <span>Magical AI Storyboard Engine</span>
+      </div>
+      <h1 class="font-sniglet text-4xl sm:text-6xl text-ghibli-wood font-extrabold tracking-wide mb-3 drop-shadow-sm">
+        Studio Ghibli <span class="text-sky-600">Scene Maker</span>
+      </h1>
+      <p class="text-ghibli-textMuted text-base sm:text-lg max-w-2xl mx-auto font-semibold">
+        Turn your imagination into a 15-second hand-painted watercolor anime sequence (3 cinematic shots)!
+      </p>
+    </header>
+
+    <!-- Preset Inspiration Showcase -->
+    <section class="mb-10">
+      <div class="flex items-center justify-between mb-4 px-2">
+        <h2 class="font-sniglet text-xl sm:text-2xl text-ghibli-wood font-bold flex items-center gap-2">
+          <i data-lucide="image" class="w-5 h-5 text-sky-600"></i>
+          Choose a Scene Inspiration
+        </h2>
+        <span class="text-xs font-bold text-ghibli-textMuted bg-amber-100/60 px-3 py-1 rounded-full border border-amber-200">
+          Click to auto-fill script
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+
+        <!-- Card 1 -->
+        <div onclick="selectPreset('hilltop')" class="group cursor-pointer bg-white rounded-3xl p-3 border-2 border-emerald-100 shadow-ghibli hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 relative overflow-hidden">
+          <div class="h-36 rounded-2xl overflow-hidden mb-3 relative">
+            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Green Hillside" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+            <span class="absolute bottom-2 left-3 text-white font-sniglet text-sm font-bold drop-shadow">The Hilltop Breeze</span>
+          </div>
+          <p class="text-xs text-ghibli-textMuted line-clamp-2 px-1 font-medium">
+            A young traveler stands on a glowing emerald hill as windy breezes whisk away her straw hat toward distant windmills...
+          </p>
+        </div>
+
+        <!-- Card 2 -->
+        <div onclick="selectPreset('cottage')" class="group cursor-pointer bg-white rounded-3xl p-3 border-2 border-sky-100 shadow-ghibli hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 relative overflow-hidden">
+          <div class="h-36 rounded-2xl overflow-hidden mb-3 relative">
+            <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=600&q=80" alt="Cozy Cottage" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+            <span class="absolute bottom-2 left-3 text-white font-sniglet text-sm font-bold drop-shadow">Cozy Meadow House</span>
+          </div>
+          <p class="text-xs text-ghibli-textMuted line-clamp-2 px-1 font-medium">
+            Chimney smoke curls up into a sunset sky while a magical forest spirit watches from inside a blooming flower patch...
+          </p>
+        </div>
+
+        <!-- Card 3 -->
+        <div onclick="selectPreset('train')" class="group cursor-pointer bg-white rounded-3xl p-3 border-2 border-amber-100 shadow-ghibli hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 relative overflow-hidden">
+          <div class="h-36 rounded-2xl overflow-hidden mb-3 relative">
+            <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80" alt="Mountain Lake" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+            <span class="absolute bottom-2 left-3 text-white font-sniglet text-sm font-bold drop-shadow">Water Train Journey</span>
+          </div>
+          <p class="text-xs text-ghibli-textMuted line-clamp-2 px-1 font-medium">
+            An old train glides smoothly across shallow mirror-like waters beneath fluffy summer storm clouds...
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Main Generator Card -->
+    <main class="bg-white/90 backdrop-blur-md rounded-3xl p-6 sm:p-8 border-4 border-amber-100/80 shadow-ghibli relative mb-12">
+
+      <form id="scriptForm" class="space-y-6">
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <label for="scriptInput" class="font-sniglet text-lg sm:text-xl text-ghibli-wood font-bold flex items-center gap-2">
+              <i data-lucide="feather" class="w-5 h-5 text-emerald-600"></i>
+              Write Your Story Script
+            </label>
+            <span class="text-xs text-emerald-700 font-bold bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+              Target: 15 seconds (3 cuts)
+            </span>
+          </div>
+          
+          <div class="relative">
+            <textarea 
+              id="scriptInput" 
+              rows="4" 
+              class="w-full bg-ghibli-cream border-2 border-amber-200/80 rounded-2xl p-4 text-ghibli-textMain placeholder-stone-400 focus:outline-none focus:border-sky-400 focus:ring-4 focus:ring-sky-100 transition-all font-medium text-base resize-y shadow-inner-soft"
+              placeholder="Describe what happens in your scene... e.g. A young girl with a blue bow sits near a quiet stream in a ancient mossy forest. Soft sunbeams illuminate glowing soot sprites floating around her as she smiles..."
+              required></textarea>
+            
+            <button 
+              type="button" 
+              onclick="clearTextarea()" 
+              class="absolute top-3 right-3 text-stone-400 hover:text-stone-600 p-1 rounded-lg hover:bg-stone-100 transition-colors"
+              title="Clear text">
+              <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Action Button -->
+        <div class="text-center">
+          <button 
+            type="submit" 
+            id="generateBtn"
+            class="group relative inline-flex items-center justify-center gap-3 w-full sm:w-auto px-10 py-4 bg-gradient-to-r from-emerald-500 via-teal-500 to-sky-500 text-white font-sniglet text-xl font-bold rounded-2xl shadow-lg shadow-emerald-500/25 hover:shadow-xl hover:shadow-emerald-500/35 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 border-2 border-white/40">
+            <i data-lucide="clapperboard" class="w-6 h-6 group-hover:rotate-12 transition-transform duration-300"></i>
+            <span>Generate 15s Scene</span>
+          </button>
+        </div>
+      </form>
+
+      <!-- Status Progress Timeline (Initially Hidden) -->
+      <div id="progressSection" class="hidden mt-10 pt-8 border-t-2 border-dashed border-amber-100">
+        <div class="flex items-center justify-between mb-6">
+          <h3 class="font-sniglet text-xl text-ghibli-wood font-bold flex items-center gap-2">
+            <i data-lucide="loader-2" id="spinnerIcon" class="w-5 h-5 text-sky-600 animate-spin"></i>
+            Rendering Progress Pipeline
+          </h3>
+          <span id="overallTimer" class="text-xs font-bold text-sky-800 bg-sky-100 px-3 py-1 rounded-full border border-sky-200">
+            Processing Shot Pipeline...
+          </span>
+        </div>
+
+        <div class="space-y-4">
+          <!-- Step 1 -->
+          <div id="step1" class="flex items-start gap-4 p-3.5 rounded-2xl bg-ghibli-cream border border-stone-200/60 transition-all duration-300">
+            <div class="step-icon w-10 h-10 rounded-xl bg-amber-100 text-amber-800 border border-amber-300 flex items-center justify-center font-bold font-sniglet shrink-0">
+              1
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <h4 class="font-bold text-sm text-ghibli-wood">LLM Scene Decomposition (0-15s Script)</h4>
+                <span class="step-status text-xs font-bold text-stone-500">Waiting</span>
+              </div>
+              <p class="text-xs text-ghibli-textMuted mt-0.5">Splitting your prompt into 3 x 5-second cinematic shots + visual character anchors.</p>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div id="step2" class="flex items-start gap-4 p-3.5 rounded-2xl bg-ghibli-cream border border-stone-200/60 transition-all duration-300">
+            <div class="step-icon w-10 h-10 rounded-xl bg-amber-100 text-amber-800 border border-amber-300 flex items-center justify-center font-bold font-sniglet shrink-0">
+              2
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <h4 class="font-bold text-sm text-ghibli-wood">Watercolor Keyframe Painting</h4>
+                <span class="step-status text-xs font-bold text-stone-500">Waiting</span>
+              </div>
+              <p class="text-xs text-ghibli-textMuted mt-0.5">Generating 3 coherent watercolor Ghibli keyframe images for establishing, medium, and close-up shots.</p>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div id="step3" class="flex items-start gap-4 p-3.5 rounded-2xl bg-ghibli-cream border border-stone-200/60 transition-all duration-300">
+            <div class="step-icon w-10 h-10 rounded-xl bg-amber-100 text-amber-800 border border-amber-300 flex items-center justify-center font-bold font-sniglet shrink-0">
+              3
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <h4 class="font-bold text-sm text-ghibli-wood">AI Video Motion Synthesis</h4>
+                <span class="step-status text-xs font-bold text-stone-500">Waiting</span>
+              </div>
+              <p class="text-xs text-ghibli-textMuted mt-0.5">Animating each keyframe into continuous 5-second video clips with gentle wind & foliage dynamics.</p>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div id="step4" class="flex items-start gap-4 p-3.5 rounded-2xl bg-ghibli-cream border border-stone-200/60 transition-all duration-300">
+            <div class="step-icon w-10 h-10 rounded-xl bg-amber-100 text-amber-800 border border-amber-300 flex items-center justify-center font-bold font-sniglet shrink-0">
+              4
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <h4 class="font-bold text-sm text-ghibli-wood">Audio & FFmpeg Crossfade Assembly</h4>
+                <span class="step-status text-xs font-bold text-stone-500">Waiting</span>
+              </div>
+              <p class="text-xs text-ghibli-textMuted mt-0.5">Stitching Shot A, B & C with ambient natural sounds into a seamless 15-second MP4.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Result Video Preview Box (Initially Hidden) -->
+      <div id="resultSection" class="hidden mt-10 pt-8 border-t-2 border-emerald-100">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="font-sniglet text-2xl text-ghibli-wood font-bold flex items-center gap-2">
+            <i data-lucide="sparkle" class="w-6 h-6 text-emerald-500"></i>
+            Your 15-Second Ghibli Masterpiece
+          </h3>
+          <span class="text-xs font-bold text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full border border-emerald-200 flex items-center gap-1">
+            <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i>
+            Render Complete
+          </span>
+        </div>
+
+        <div class="bg-black/90 rounded-3xl overflow-hidden border-4 border-amber-200 shadow-2xl relative group">
+          <video id="finalVideo" class="w-full aspect-video object-cover" controls autoplay loop>
+            <source id="videoSource" src="" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <!-- Breakdown Card Tabs -->
+        <div class="mt-6 bg-ghibli-cream rounded-2xl p-4 border border-amber-200/80">
+          <h4 class="font-sniglet text-lg text-ghibli-wood font-bold mb-3 flex items-center gap-2">
+            <i data-lucide="film" class="w-4 h-4 text-sky-600"></i>
+            Scene Breakdown (3 Shots x 5 Seconds)
+          </h4>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="bg-white p-3 rounded-xl border border-stone-200 text-xs space-y-1">
+              <span class="font-bold text-sky-700 block font-sniglet text-sm">Shot 1 (0s - 5s): Establishing</span>
+              <p class="text-stone-600 italic">"Wide camera panning across vibrant summer meadow with drifting clouds."</p>
+            </div>
+            <div class="bg-white p-3 rounded-xl border border-stone-200 text-xs space-y-1">
+              <span class="font-bold text-emerald-700 block font-sniglet text-sm">Shot 2 (5s - 10s): Medium Shot</span>
+              <p class="text-stone-600 italic">"Character reacting as wind gently blows hair and yellow straw hat."</p>
+            </div>
+            <div class="bg-white p-3 rounded-xl border border-stone-200 text-xs space-y-1">
+              <span class="font-bold text-amber-700 block font-sniglet text-sm">Shot 3 (10s - 15s): Close-Up</span>
+              <p class="text-stone-600 italic">"Tracking focus on hat soaring into bright sky with watercolor birds."</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center text-xs font-bold text-ghibli-textMuted flex flex-col sm:flex-row items-center justify-center gap-2">
+      <span>Crafted for Ghibli-Style AI Video Generation</span>
+      <span class="hidden sm:inline">•</span>
+      <span class="text-sky-700">Powered by LLM + Image Diffusion + Motion APIs</span>
+    </footer>
+
+  </div>
+
+  <!-- JavaScript Interaction Script -->
+  <script>
+    <script>
+    const form = document.getElementById('generatorForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const statusContainer = document.getElementById('statusContainer');
+    const resultContainer = document.getElementById('resultContainer');
+    const videoPlayer = document.getElementById('videoPlayer');
+    const videoSource = document.getElementById('videoSource');
+
+    const steps = [
+      document.getElementById('step1'),
+      document.getElementById('step2'),
+      document.getElementById('step3'),
+      document.getElementById('step4')
+    ];
+
+    // Subukan ang backend URL (palitan kung naka-deploy sa live server)
+    const BACKEND_URL = 'http://127.0.0.1:8000';
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const scriptText = document.getElementById('scriptInput').value.trim();
+      if (!scriptText) return;
+
+      // Reset UI state
+      submitBtn.disabled = true;
+      submitBtn.innerText = 'Gumagawa ng Video...';
+      resultContainer.style.display = 'none';
+      statusContainer.style.display = 'block';
+
+      // Reset progress steps
+      steps.forEach(step => step.className = 'step');
+
+      try {
+        // Step 1: Ipadala ang Script sa FastAPI Backend
+        updateStep(0, 'active');
+
+        const response = await fetch(`${BACKEND_URL}/api/generate-video`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ script: scriptText })
+        });
+
+        if (!response.ok) {
+          throw new Error('Hindi makakonekta sa FastAPI backend server.');
+        }
+
+        const data = await response.json();
+        const jobId = data.job_id;
+
+        // Step 2: I-poll ang Status mula sa Backend bawat 4 na segundo
+        pollJobStatus(jobId);
+
+      } catch (error) {
+        alert('Error: ' + error.message);
+        submitBtn.disabled = false;
+        submitBtn.innerText = 'Mag-generate ng 15s Scene';
+      }
+    });
+
+    // Function para i-check ang progress sa Python Backend
+    function pollJobStatus(jobId) {
+      const pollInterval = setInterval(async () => {
+        try {
+          const res = await fetch(`${BACKEND_URL}/api/job-status/${jobId}`);
+          const job = await res.json();
+
+          if (job.status === 'parsing_script') {
+            updateStep(0, 'completed');
+            updateStep(1, 'active');
+          } 
+          else if (job.status === 'generating_videos') {
+            updateStep(0, 'completed');
+            updateStep(1, 'completed');
+            updateStep(2, 'active');
+          } 
+          else if (job.status === 'completed') {
+            clearInterval(pollInterval);
+
+            // Markahan ang lahat ng steps bilang tapos na
+            steps.forEach(step => step.className = 'step completed');
+
+            // Ipakita ang na-generate na video sa player
+            if (job.video_url) {
+              videoSource.src = job.video_url;
+              videoPlayer.load();
+              resultContainer.style.display = 'block';
+            } else {
+              alert('Natapos ang job ngunit walang nahanap na video URL.');
+            }
+
+            submitBtn.disabled = false;
+            submitBtn.innerText = 'Mag-generate ng 15s Scene';
+          } 
+          else if (job.status === 'failed') {
+            clearInterval(pollInterval);
+            alert('Nagkaroon ng problema sa AI generation: ' + (job.error || 'Unknown error'));
+            submitBtn.disabled = false;
+            submitBtn.innerText = 'Mag-generate ng 15s Scene';
+          }
+        } catch (err) {
+          console.error('Error fetching job status:', err);
+        }
+      }, 4000); // Tinitingnan ang status bawat 4 seconds
+    }
+
+    function updateStep(index, state) {
+      if (state === 'active') {
+        steps[index].className = 'step active';
+      } else if (state === 'completed') {
+        steps[index].className = 'step completed';
+      }
+    }
+  </script>
